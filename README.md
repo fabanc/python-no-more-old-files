@@ -12,4 +12,4 @@ The script expect the following parameters:
  - \-r or \-\-recursive: If used, the files in sub-folders will also be removed. This parameter is optional.
  - \-s or \-\-simulation: If used, the code will list the files but will not delete them. This parameter is optional.
 
-`python.exe no_more_old_files.py -f "D:\Temp\python-remove" -d 0 -r -s`
+`python.exe no_more_old_files.py -f "D:\Temp\python-remove" -d 0 -r`
