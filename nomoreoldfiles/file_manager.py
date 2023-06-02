@@ -70,9 +70,9 @@ def remove_old_files(folder, days, recursive=False, simulation=False):
     cutoff_date = current_date - delta
     logging.info(f'Cutoff date: {cutoff_date}')
 
-    old_file = get_old_files(folder, cutoff_date, recursive)
-    logging.info(f'Detected {len(old_file)} files to delete.')
-    for file in old_file:
+    old_files = get_old_files(folder, cutoff_date, recursive)
+    logging.info(f'Detected {len(old_files)} files to delete.')
+    for file in old_files:
         if not simulation:
             os.remove(file)
-    return
+    return old_files
