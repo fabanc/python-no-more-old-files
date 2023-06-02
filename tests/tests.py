@@ -81,6 +81,17 @@ class nomoreoldfiles(unittest.TestCase):
             self.assertEqual(len(files), 2)
             self.assertEqual(os.path.exists(temp_file_path), False)
 
+    def test_invalid_days(self):
+        with tempfile.TemporaryDirectory() as test_dir:
+            self.assertRaises(
+                ValueError,
+                file_manager.remove_old_files,
+                test_dir,
+                -1,
+                True,
+                False
+            )
+
 
 if __name__ == '__main__':
     unittest.main()
