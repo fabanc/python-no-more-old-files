@@ -2,7 +2,6 @@ import datetime
 import logging
 import os
 import pathlib
-
 from datetime import timedelta
 
 
@@ -54,6 +53,44 @@ def get_old_files(path, cutoff_date, recursive):
     return output
 
 
+def get_folders(files):
+    """
+    Get a unique list of folders from a list of file paths
+    :param files: A list of file paths
+    :return: A list of folders. An empty list will be returned if the list of file is null or empty.
+    """
+    if files is None or len(files) == 0:
+        return []
+    folders = [os.path.dirname(f) for f in files]
+    return list(set(folders))
+
+
+def remove_empty_folders(root, folders, simulation=False):
+    """
+    Remove a list folders if they are empty
+    :param folders: The input list of folders.
+    :param simulation: If true, the function will list the folders but will not remove them.
+    :return:
+    """
+
+    if folders is None:
+        return []
+
+    output = []
+    # Sort the list of path by length. Inspect from deepest to shallowest in the tree
+    sorted_folders = sorted(folders, reverse=True)
+    for folder in sorted_folders:
+        if folder.lower() == root.lower():
+            continue
+        count_items = len(os.listdir(folder))
+        logging.debug(f'Folder: {folder}, Items: {count_items}')
+        if count_items == 0 and not simulation:
+            logging.info(f'Removing folder {folder}')
+            os.remove(folder)
+            output.append(folder)
+    return output
+
+
 def remove_old_files(folder, days, recursive=False, simulation=False):
     logging.info(f'Folder: {folder}, Days: {days}, Recursive: {recursive}, Simulation: {simulation}')
     # Attribute validation
@@ -75,4 +112,9 @@ def remove_old_files(folder, days, recursive=False, simulation=False):
     for file in old_files:
         if not simulation:
             os.remove(file)
+
+    if not simulation:
+        folders = get_folders(old_files)
+        remove_empty_folders(folder, folders, simulation=simulation)
+
     return old_files
