@@ -12,6 +12,7 @@ def argument_setup():
     parser.add_argument(
         '-d',
         '--days',
+        default=-1,
         required=True,
         type=int,
         help='The number of days. Files older than this number of days will be removed.'
