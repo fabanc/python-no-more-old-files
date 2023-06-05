@@ -14,4 +14,4 @@ The script expect the following parameters:
  - \-s or \-\-simulation: If used, the code will list the files but will not delete them. This parameter is optional.
 
 Here is an example: `python.exe no_more_old_files.py -f "D:\Temp\python-remove" -d 0 -r`
-You can also modify the batch file windows_task.bat and program it in Windows Task Scheduler  to run it.
+You can also modify the batch file `windows_task.bat` and program it in Windows Task Scheduler  to run it.
