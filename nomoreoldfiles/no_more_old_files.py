@@ -1,6 +1,6 @@
 import argparse
 import logging
-from nomoreoldfiles import file_manager
+import file_manager
 
 parser = argparse.ArgumentParser(
     prog='No more old files ...',
